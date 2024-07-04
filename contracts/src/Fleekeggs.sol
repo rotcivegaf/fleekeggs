@@ -9,6 +9,8 @@ contract Fleekeggs is ERC1155, Owned {
     event SetMinter(address minter);
 
     address public minter;
+    mapping(bytes32 => bool) public burnedHashes;
+    mapping(address => uint256) public nonceCount;
 
     constructor (address _minter) Owned(msg.sender) {
         minter = _minter;
@@ -33,12 +35,15 @@ contract Fleekeggs is ERC1155, Owned {
         require(expiry >= block.timestamp, "Expired");
         uint256 idsLength = ids.length;
         require(idsLength == amounts.length, "Wrong length");
+        uint256 nonce = nonceCount[to]++;
+        bytes32 hash = keccak256(abi.encode(to, expiry, nonce, ids, amounts));
+        require(!burnedHashes[hash], "Burned hash");
         require(
-            minter == ECDSA.recover(
-                keccak256(abi.encode(to, expiry, ids, amounts)), signature
-            ),
+            minter == ECDSA.recover(hash, signature),
             "Not minter"
         );
+
+        burnedHashes[hash] = true;
 
         for (uint i; i < idsLength;) {
             _mint(
