@@ -35,7 +35,7 @@ contract Fleekeggs is ERC1155, Owned {
         require(idsLength == amounts.length, "Wrong length");
         require(
             minter == ECDSA.recover(
-                keccak256(abi.encodePacked(to, expiry, ids, amounts)), signature
+                keccak256(abi.encode(to, expiry, ids, amounts)), signature
             ),
             "Not minter"
         );
@@ -50,12 +50,5 @@ contract Fleekeggs is ERC1155, Owned {
 
             unchecked { ++i; }
         }
-    }
-
-    function _checkSignature(
-        bytes32 hash,
-        bytes memory signature
-    ) internal view {
-        require(minter == ECDSA.recover(hash, signature), "Not minter");
     }
 }
