@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "viem": "^2.17.0"
+  }
+}

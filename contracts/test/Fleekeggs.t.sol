@@ -19,7 +19,7 @@ contract FleekeggsTest is Test {
         fleekeggs = new Fleekeggs(minter);
     }
 
-    function test_constructor() public {
+    function test_constructor() public view {
         assertEq(fleekeggs.owner(), owner);
         assertEq(fleekeggs.minter(), minter);
     }
@@ -53,7 +53,6 @@ contract FleekeggsTest is Test {
         amounts[3] = 1;
         amounts[4] = 30;
 
-        bytes memory signature;
         bytes32 nonce;
 
         bytes32 hash = keccak256(abi.encode(to, expiry, nonce, ids, amounts));
@@ -73,7 +72,6 @@ contract FleekeggsTest is Test {
         assertEq(fleekeggs.balanceOf(to, 2), 2);
         assertEq(fleekeggs.balanceOf(to, 4), 4);
 
-        assertEq(fleekeggs.burnedHashes(hash), true);
         assertEq(fleekeggs.nonceCount(to), 1);
     }
 
@@ -85,7 +83,6 @@ contract FleekeggsTest is Test {
         uint256[] memory amounts = new uint256[](5);
         amounts[0] = 10;
 
-        bytes memory signature;
         uint256 nonce = 0;
 
         bytes32 hash = keccak256(abi.encode(to, expiry, nonce, ids, amounts));
