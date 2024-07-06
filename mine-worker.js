@@ -16,7 +16,7 @@ const TYPES = [
 const DELTA_EXPIRY = 60 * 60 * 24; // A day
 // addr: 0xa0Ee7A142d267C1f36714E4a8F75612F20a79720
 const MINTER_PK = '0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6';
-const ADDR_fleekeggs = '0xC54Ae1172a7E671002C3bf73c8D75e54C9D2EFFe';
+const ADDR_fleekeggs = '0x4C743c69E88F146d4dd434cB662024C86c2F0997';
 
 const PUBLIC_CLIENT = createPublicClient({
   chain: baseSepolia,
