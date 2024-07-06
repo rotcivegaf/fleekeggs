@@ -29,6 +29,27 @@ contract Fleekeggs is ERC1155, Owned {
 
     function mintBatch(
         address to,
+        uint256[] calldata ids,
+        uint256[] calldata amounts
+    ) external {
+        uint256 idsLength = ids.length;
+        require(idsLength == amounts.length, "Wrong length");
+        require(msg.sender == minter, "Not minter");
+
+        for (uint i; i < idsLength;) {
+            _mint(
+                to,
+                ids[i],
+                amounts[i],
+                ""
+            );
+
+            unchecked { ++i; }
+        }
+    }
+
+    function mintBatchWithSignature(
+        address to,
         uint256 expiry,
         uint256[] calldata ids,
         uint256[] calldata amounts,

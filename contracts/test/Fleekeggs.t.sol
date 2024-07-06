@@ -31,12 +31,59 @@ contract FleekeggsTest is Test {
         assertEq(fleekeggs.minter(), newMinter);
     }
 
-    function test_Try_setMinter_withoutOwnership() public {
+    function test_try_setMinter_withoutOwnership() public {
         vm.expectRevert("UNAUTHORIZED");
         fleekeggs.setMinter(address(0));
     }
 
     function test_mintBatch() public {
+        address to = address(0x12345678);
+        uint256[] memory ids = new uint256[](5);
+        ids[0] = 0;
+        ids[1] = 4;
+        ids[2] = 2;
+        ids[3] = 1;
+        ids[4] = 0;
+
+        uint256[] memory amounts = new uint256[](5);
+        amounts[0] = 10;
+        amounts[1] = 4;
+        amounts[2] = 2;
+        amounts[3] = 1;
+        amounts[4] = 30;
+
+        vm.prank(minter);
+        fleekeggs.mintBatch(
+            to,
+            ids,
+            amounts
+        );
+
+        assertEq(fleekeggs.balanceOf(to, 0), 10 + 30);
+        assertEq(fleekeggs.balanceOf(to, 1), 1);
+        assertEq(fleekeggs.balanceOf(to, 2), 2);
+        assertEq(fleekeggs.balanceOf(to, 4), 4);
+    }
+
+    function test_try_mintBatch_withoutMinterOwnership() public {
+        address to = address(0x12345678);
+        uint256[] memory ids = new uint256[](5);
+        ids[0] = 0;
+
+        uint256[] memory amounts = new uint256[](5);
+        amounts[0] = 1;
+
+        vm.prank(user);
+
+        vm.expectRevert("Not minter");
+        fleekeggs.mintBatch(
+            to,
+            ids,
+            amounts
+        );
+    }
+
+    function test_mintBatchWithSignature() public {
         address to = address(0x12345678);
         uint256 expiry = block.timestamp;
         uint256[] memory ids = new uint256[](5);
@@ -59,7 +106,7 @@ contract FleekeggsTest is Test {
         (uint8 v, bytes32 r, bytes32 s) = vm.sign(minterPk, hash);
 
         vm.prank(user);
-        fleekeggs.mintBatch(
+        fleekeggs.mintBatchWithSignature(
             to,
             expiry,
             ids,
@@ -75,7 +122,7 @@ contract FleekeggsTest is Test {
         assertEq(fleekeggs.nonceCount(to), 1);
     }
 
-    function test_try_mintBatch_twiceWithTheSameSignature() public {
+    function test_try_mintBatchWithSignature_twiceWithTheSameSignature() public {
         address to = address(0x12345678);
         uint256 expiry = block.timestamp;
         uint256[] memory ids = new uint256[](5);
@@ -89,7 +136,7 @@ contract FleekeggsTest is Test {
         (uint8 v, bytes32 r, bytes32 s) = vm.sign(minterPk, hash);
 
         vm.startPrank(user);
-        fleekeggs.mintBatch(
+        fleekeggs.mintBatchWithSignature(
             to,
             expiry,
             ids,
@@ -98,7 +145,7 @@ contract FleekeggsTest is Test {
         );
 
         vm.expectRevert("Not minter");
-        fleekeggs.mintBatch(
+        fleekeggs.mintBatchWithSignature(
             to,
             expiry,
             ids,
