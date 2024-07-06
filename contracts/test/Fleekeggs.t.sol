@@ -100,9 +100,9 @@ contract FleekeggsTest is Test {
         amounts[3] = 1;
         amounts[4] = 30;
 
-        bytes32 nonce;
+        bytes32 userHash = fleekeggs.usersHash(to);
 
-        bytes32 hash = keccak256(abi.encode(to, expiry, nonce, ids, amounts));
+        bytes32 hash = keccak256(abi.encode(to, expiry, userHash, ids, amounts));
         (uint8 v, bytes32 r, bytes32 s) = vm.sign(minterPk, hash);
 
         vm.prank(user);
@@ -119,7 +119,7 @@ contract FleekeggsTest is Test {
         assertEq(fleekeggs.balanceOf(to, 2), 2);
         assertEq(fleekeggs.balanceOf(to, 4), 4);
 
-        assertEq(fleekeggs.nonceCount(to), 1);
+        assertEq(fleekeggs.usersHash(to), blockhash(block.number - 1));
     }
 
     function test_try_mintBatchWithSignature_twiceWithTheSameSignature() public {
@@ -130,9 +130,9 @@ contract FleekeggsTest is Test {
         uint256[] memory amounts = new uint256[](5);
         amounts[0] = 10;
 
-        uint256 nonce = 0;
+        bytes32 userHash = fleekeggs.usersHash(to);
 
-        bytes32 hash = keccak256(abi.encode(to, expiry, nonce, ids, amounts));
+        bytes32 hash = keccak256(abi.encode(to, expiry, userHash, ids, amounts));
         (uint8 v, bytes32 r, bytes32 s) = vm.sign(minterPk, hash);
 
         vm.startPrank(user);
