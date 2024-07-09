@@ -49,9 +49,9 @@ Mint transaction: `npx hardhat mintBatch --network nil --contract <CONTRACT_ADDR
 ## Deployments/Dapp
 
 - [DApp](https://crooked-car-straight.on-fleek.app/)
-- [Deployer address = 0x0002b9F00203105Fdb91f52277CFCBC516C33862](https://explore.nil.foundation/address/0002b9F00203105Fdb91f52277CFCBC516C33862)
-- [Fleekeggs Contract = 00010cfd78db79901d90739a47a7d5FD32BfaEC0](https://explore.nil.foundation/address/00010cfd78db79901d90739a47a7d5FD32BfaEC0/messages)
-- [Player address = 0x0002b9F00203105Fdb91f52277CFCBC516C33862](https://explore.nil.foundation/address/0002b9F00203105Fdb91f52277CFCBC516C33862)
+- [Deployer/Minter address = 0001b9f00203105fdb91f52277cfcbc516c33862](https://explore.nil.foundation/address/0001b9f00203105fdb91f52277cfcbc516c33862/messages)
+- [Fleekeggs Contract = 0x00010cfd78db79901d90739a47a7d5fd32bfaec0](https://explore.nil.foundation/address/0x00010cfd78db79901d90739a47a7d5fd32bfaec0/messages)
+- [Player address = 0x0001B9f00203105fdB91F52277cFCBC516c33862](https://explore.nil.foundation/address/0001B9f00203105fdB91F52277cFCBC516c33862/messages)
 
 ## Transactions
 
