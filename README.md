@@ -29,15 +29,38 @@ Eggs Idle Miner is designed to provide a unique gaming experience where players 
 
 To run Eggs Idle Miner locally, follow these steps:
 
-Clone the Repository:
+Clone the Repository and install:
 ```bash
 git clone git@github.com:rotcivegaf/fleekeggs.git
-cd fleekeggs
-yarn
-npm run dev
+cd fleekeggs/hardhat/
+npm i
 ```
 
-Usage
+Deploy: `npx hardhat ignition deploy ./ignition/modules/Fleekeggs.ts --network nil`
+
+Mint transaction: `npx hardhat mintBatch --network nil --contract <CONTRACT_ADDRESS>`
+
+## Code
+
+- [Fleekeggs.sol](https://github.com/rotcivegaf/fleekeggs/blob/master/hardhat/contracts/Fleekeggs.sol)
+- [Deploy module Fleekeggs.ts](https://github.com/rotcivegaf/fleekeggs/blob/master/hardhat/ignition/modules/Fleekeggs.ts)
+- [Mint task mintBatch.ts](https://github.com/rotcivegaf/fleekeggs/blob/master/hardhat/tasks/mintBatch.ts)
+
+## Deployments/Dapp
+
+- [DApp](https://crooked-car-straight.on-fleek.app/)
+- [Deployer address = 0x0002b9F00203105Fdb91f52277CFCBC516C33862](https://explore.nil.foundation/address/0002b9F00203105Fdb91f52277CFCBC516C33862)
+- [Fleekeggs Contract = 00010cfd78db79901d90739a47a7d5FD32BfaEC0](https://explore.nil.foundation/address/00010cfd78db79901d90739a47a7d5FD32BfaEC0/messages)
+- [Player address = 0x0002b9F00203105Fdb91f52277CFCBC516C33862](https://explore.nil.foundation/address/0002b9F00203105Fdb91f52277CFCBC516C33862)
+
+## Transactions
+
+- [2026b7e45d768f4d60f0f18365e4a12dec98a2e01ecb7ad3e50874bebe41d6aa](https://explore.nil.foundation/tx/2026b7e45d768f4d60f0f18365e4a12dec98a2e01ecb7ad3e50874bebe41d6aa)
+- [17cd1948fd61bf620b71233064ee6f2b0b7854887108da1d723cdd730785063d](https://explore.nil.foundation/tx/17cd1948fd61bf620b71233064ee6f2b0b7854887108da1d723cdd730785063d)
+- [2b008654d608134b49c6fb5696fa7cc3338b06d7e35a0ff5bf0b8ddfb1c7486c](https://explore.nil.foundation/tx/2b008654d608134b49c6fb5696fa7cc3338b06d7e35a0ff5bf0b8ddfb1c7486c)
+- [2017c579e3d0d8cf2245abfcb5d1a2be54f250072c3ab0c30b38fdfdd278ef4f](https://explore.nil.foundation/tx/2017c579e3d0d8cf2245abfcb5d1a2be54f250072c3ab0c30b38fdfdd278ef4f)
+
+## Usage
 -----
 
 1.  **Start Mining**:
